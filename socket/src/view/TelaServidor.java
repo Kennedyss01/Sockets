@@ -8,25 +8,22 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import static view.TelaServidor.data;
-import static view.TelaServidor.dataOut;
-import static view.TelaServidor.serverSocket;
-import static view.TelaServidor.socket;
 
 /**
  *
- * @author gisla
+ * @author kennedy
  */
-public class TelaChat extends javax.swing.JFrame {
+public class TelaServidor extends javax.swing.JFrame {
 
     /**
-     * Creates new form Chat
+     * Creates new form TelaServidor
      */
+    static ServerSocket serverSocket;
     static Socket socket;
     static DataInputStream data;
     static DataOutputStream dataOut;
     
-    public TelaChat() {
+    public TelaServidor() {
         initComponents();
     }
 
@@ -40,27 +37,17 @@ public class TelaChat extends javax.swing.JFrame {
     private void initComponents() {
 
         lblMensagem = new javax.swing.JLabel();
-        txtNomeUsuario = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         AreaMsg = new javax.swing.JTextPane();
-        lblMensagem1 = new javax.swing.JLabel();
         txtMensagem = new javax.swing.JTextField();
         btnEnviar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        lblMensagem.setText("Usuário:");
-
-        txtNomeUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeUsuarioActionPerformed(evt);
-            }
-        });
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.setViewportView(AreaMsg);
+        lblMensagem.setText("Mensagem:");
 
-        lblMensagem1.setText("Mensagem:");
+        jScrollPane1.setViewportView(AreaMsg);
 
         txtMensagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +63,7 @@ public class TelaChat extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Cliente");
+        jLabel1.setText("Servidor");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,52 +72,42 @@ public class TelaChat extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(lblMensagem1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
+                        .addGap(150, 150, 150)
                         .addComponent(btnEnviar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblMensagem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
+                        .addGap(169, 169, 169)
                         .addComponent(jLabel1)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(7, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMensagem1))
+                    .addComponent(lblMensagem))
                 .addGap(18, 18, 18)
                 .addComponent(btnEnviar)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeUsuarioActionPerformed
-
     private void txtMensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMensagemActionPerformed
         // TODO add your handling code here:
-        try{
-            String msgEnvia = "";
-            msgEnvia = txtMensagem.getText().trim();
-            dataOut.writeUTF(msgEnvia);
-        }catch(Exception e){    
-        }
     }//GEN-LAST:event_txtMensagemActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
@@ -142,7 +119,6 @@ public class TelaChat extends javax.swing.JFrame {
         }catch(Exception e){
             
         }
-                     
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**
@@ -162,40 +138,38 @@ public class TelaChat extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaServidor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaServidor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaServidor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaChat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaServidor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaChat().setVisible(true);
+                new TelaServidor().setVisible(true);
             }
         });
         
+        String string = "";
         try{
             
-            socket = new Socket ("127.0.0.1", 1201); //Enderço de ip e porta do server
+            serverSocket = new ServerSocket (1201); //Servidor inicia na porta 1201
+            socket = serverSocket.accept();//Servidor passa a aceitar conexões
             data = new DataInputStream(socket.getInputStream());
             dataOut = new DataOutputStream(socket.getOutputStream());
-            String string = "";            
             
             while(!string.equals("sair")){
                 string = data.readUTF();
-                AreaMsg.setText(AreaMsg.getText().trim()+"\n Servidor: "+ string);
-                //Exibindo a mensagem do cliente
+                AreaMsg.setText(AreaMsg.getText().trim()+"\n"+ string);//Exibindo a mensagem do cliente
             }
-                        
+            
         }catch(Exception e){
-            
-            
+                        
         }
         
     }
@@ -206,8 +180,6 @@ public class TelaChat extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMensagem;
-    private javax.swing.JLabel lblMensagem1;
     private javax.swing.JTextField txtMensagem;
-    private javax.swing.JTextField txtNomeUsuario;
     // End of variables declaration//GEN-END:variables
 }
